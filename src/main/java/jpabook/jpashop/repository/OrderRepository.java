@@ -116,6 +116,23 @@ public class OrderRepository {
         ).getResultList();
     }
 
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" + // (참고) springboot 3버전, hibernate 6버전 부터는 자동으로 distinct 적용
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class
+        )
+                .setFirstResult(1)
+                .setMaxResults(100)
+                .getResultList();
+
+        // ※ 일대다 fetch join 시 페이징 불가
+        // => 페이징 함수 강제 적용 시 조회 데이터를 메모리로 끌고와 페이징 처리
+        // (WARN 로그 확인 가능) HHH90003004: firstResult/maxResults specified with collection fetch; applying in memory
+    }
+
 //    public List<OrderSimpleQueryDto> findOrderDtos() {
 //        return em.createQuery(
 //                "select new jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) " +
