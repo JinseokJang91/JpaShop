@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class Order {
     private Member member;
     //private Member member = new ByteBuddyInterceptor(); // 지연로딩이면 프록시 객체를 생성해서 넣어놓음
 
+    //@BatchSize(size = 1000)
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 

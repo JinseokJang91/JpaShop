@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 엔티티가 아닌 화면이나 비즈니스에 최적화된 쿼리는 별도로 구성하는 것이 좋음
+ */
 @Repository
 @RequiredArgsConstructor
 public class OrderSimpleQueryRepository {

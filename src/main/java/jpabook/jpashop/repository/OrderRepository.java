@@ -133,6 +133,16 @@ public class OrderRepository {
         // (WARN 로그 확인 가능) HHH90003004: firstResult/maxResults specified with collection fetch; applying in memory
     }
 
+    public List<Order> findAllWithMemberDelivery_page(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
 //    public List<OrderSimpleQueryDto> findOrderDtos() {
 //        return em.createQuery(
 //                "select new jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) " +
