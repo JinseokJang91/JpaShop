@@ -64,6 +64,7 @@ public class OrderService {
      */
     public List<Order> findOrders(OrderSearch orderSearch) {
 //        return orderRepository.findAll(orderSearch); // 결과 안 나옴.
-        return orderRepository.findAllByString(orderSearch);
+        //return orderRepository.findAllByString(orderSearch);
+        return orderRepository.findAll_QueryDsl(orderSearch); // QueryDSL 활용
     }
 }

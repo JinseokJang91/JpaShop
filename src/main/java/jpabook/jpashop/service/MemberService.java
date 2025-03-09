@@ -2,6 +2,7 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
+import jpabook.jpashop.repository.MemberRepositoryNew;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final MemberRepositoryNew memberRepositoryNew; // Spring Data JPA 활용
 
     /**
      * 회원가입
@@ -22,6 +24,8 @@ public class MemberService {
         validateDuplicateMember(member); // 중복회원 검증
 
         memberRepository.save(member);
+
+        //memberRepositoryNew.save(member);
 
         return member.getId();
     }
@@ -38,6 +42,8 @@ public class MemberService {
      * 회원 전체조회
      */
     public List<Member> findMembers() {
+        //memberRepositoryNew.findAll();
+
         return memberRepository.findAll();
     }
 
@@ -51,6 +57,7 @@ public class MemberService {
     @Transactional
     public void update(Long id, String name) {
         Member member = memberRepository.findOne(id);
+        //Member memberNew = memberRepositoryNew.findById(id).get();
         member.setName(name);
     }
 }

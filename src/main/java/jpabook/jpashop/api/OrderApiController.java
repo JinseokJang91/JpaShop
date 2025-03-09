@@ -35,7 +35,7 @@ public class OrderApiController {
 
         // LAZY LOADING 초기화
         for (Order order : all) {
-            order.getMember().getName();
+            order.getMember().getName(); // (참고) `spring.jpa.open-in-view: false` 설정 시 지연로딩 프록시 객체 초기화가 불가능
             order.getDelivery().getAddress();
             List<OrderItem> orderItems = order.getOrderItems();
 
